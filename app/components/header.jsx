@@ -2,7 +2,6 @@ import { Link } from '@remix-run/react'
 import logo from '../../public/img/logo.svg'
 import Navegacion from './navegacion';
 
-
 function Header() {
 
   return (

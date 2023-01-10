@@ -110,11 +110,11 @@ main {
 }
 .footer .navegacion a, .footer .copyright {
   color: var(--white);
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: 700;
   text-decoration: none;
 }
 .footer .copyright {
   text-align: center;
-  font-size: 2.2rem;
 }
+
