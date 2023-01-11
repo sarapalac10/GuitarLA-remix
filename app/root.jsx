@@ -3,7 +3,9 @@ import {
     Links,
     Outlet,
     Scripts,
-    LiveReload
+    LiveReload,
+    useCatch, 
+    Link
 } from '@remix-run/react';
 
 import styles from './styles/index.css';
@@ -70,5 +72,27 @@ function Document({children}) {
                 <LiveReload />
             </body>
         </html>
+    )
+}
+
+/** Manejo de errores **/
+//El error se pasa a través del useCatch
+export function CatchBoundary() {
+    const error = useCatch()
+    return (
+        <Document>
+            <p className='error'>{error.status}{error.statusText}</p>
+            <Link to='/' className='error-enlace'>Regresar a la página principal</Link>
+        </Document>
+    )
+}
+
+//El error se pasa en el componente 
+export function ErrorBoundary({error}) {
+    return (
+        <Document>
+            <p className='error'>{error.status}{error.statusText}</p>
+            <Link to='/' className='error-enlace'>Regresar a la página principal</Link>
+        </Document>
     )
 }
