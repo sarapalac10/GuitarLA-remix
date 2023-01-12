@@ -11,17 +11,17 @@ export function meta() {
 }
 
 export function links() {
-  return(
+  return[
     {
       rel: 'stylesheet',
       href: styles
-    }
-/*     {
+    },
+    {
       rel:'preloaded',
       href: imagen,
       as: 'imagen'
-    } */
-  )
+    }
+  ]
 }
 
 function Nosotros() {
