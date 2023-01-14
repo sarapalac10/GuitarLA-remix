@@ -11,7 +11,7 @@ function Post({post}) {
             <h3>{titulo}</h3>
             <p className="fecha">{formatoFecha(publishedAt)}</p>
             <p className="resumen">{contenido}</p>
-            <Link className="enlace" to={`/posts/${url}`}>Ir al artículo completo</Link>
+            <Link className="enlace" to={`/blog/${url}`}>Ir al artículo completo</Link>
 
         </div>
     </article>
