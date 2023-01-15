@@ -60,6 +60,7 @@ main {
 }
 .header .navegacion {
   display: flex;
+  align-items: center;
   gap: 2rem;
   margin-top: 5rem;
 }
@@ -84,7 +85,9 @@ main {
   box-shadow: 0 0 5px #ffc600;
   border-radius: 50%;
 }
-
+.header .navegacion img {
+  width: 3rem;
+}
 /****************************** FOOTER ******************************/
 .footer{
   background-color: var(--black);
@@ -113,6 +116,9 @@ main {
   font-size: 2.2rem;
   font-weight: 700;
   text-decoration: none;
+}
+.footer .navegacion a:last-of-type{
+  display: none;
 }
 .footer .copyright {
   text-align: center;
