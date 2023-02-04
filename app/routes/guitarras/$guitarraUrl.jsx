@@ -1,4 +1,4 @@
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, useOutletContext } from '@remix-run/react'
 import { getGuitarra } from '~/models/guitarras.server'
 import { useState } from 'react';
 
@@ -32,7 +32,7 @@ export function meta({data}) {
 }
 
 function Guitarra() {
-
+    const { agregarCarrito } = useOutletContext();
     const [cantidad, setCantidad] = useState(0);
 
     const guitarra = useLoaderData();
@@ -43,18 +43,19 @@ function Guitarra() {
         e.preventDefault();
 
         if(cantidad<1){
-            alert('Debes seleccionar una cantidad mayor a 1');
+            alert('Debes seleccionar una cantidad mayor o igual a 1');
             return
         }
 
         const guitarraSeleccionada = {
             id: guitarra.data[0].id,
             imagen: imagen.data.attributes.url,
-            nombre: nombre,
+            nombre,
             precio,
             cantidad
         }
-        console.log('guitarraSeleccionada :>> ', guitarraSeleccionada);
+        //console.log('guitarraSeleccionada :>> ', guitarraSeleccionada);
+        agregarCarrito(guitarraSeleccionada)
     }
 
   return (
@@ -73,7 +74,7 @@ function Guitarra() {
                     id='cantidad'
                     onChange={ e=> setCantidad(+e.target.value) }
                 >
-                    <option value="0" disabled selected>--- Selecciona ---</option>
+                    <option value="0">--- Selecciona ---</option>
                     <option value='1'>1</option>
                     <option value='2'>2</option>
                     <option value='3'>3</option>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import {
     Meta,
     Links,
@@ -50,9 +52,68 @@ export function links() {
 }
 
 export default function App() {
+
+    const carritoLocalStorage = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carrito')) ?? [] : null
+
+    const [carrito, setCarrito] = useState(carritoLocalStorage)
+
+    useEffect(() => {
+      console.log('Enviado desde use Efect :>> ');
+        localStorage.setItem('carrito', JSON.stringify(carrito))
+    }, [carrito])
+    
+
+    const agregarCarrito = guitarra => {
+        if(carrito.some(guitarraState => guitarraState.id === guitarra.id)) {
+            //El elemento ya existe
+            console.log('El elemento ya está en el carrito..');
+            //Iterar sobre el arreglo, identificar el duplicado
+            const carritoActualizado = carrito.map( guitarraState => {
+                if(guitarraState.id === guitarra.id){
+                    //Reescribiendo la cantidad QUEDA EL NUEVO VALOR QUE SE LE PONGA EN LA CANTIDAD
+                    guitarraState.cantidad = guitarra.cantidad
+                    //Si deseo que SUME la cantidad anterior a la nueva seleccionada sería :
+                    //guitarraState.cantidad += guitarra.cantidad
+                }
+                return guitarraState
+            })
+            //Agregar al carrito
+            setCarrito(carritoActualizado)
+
+        } else {
+            //Registro nuevo, agregarlo al carrito
+            setCarrito([...carrito, guitarra])
+        }
+    }
+
+    //Cuando la cantidad se cambia en la página del carrito de compras
+
+    const actualizarCantidad = guitarra => {
+        console.log('guitarra :>> ', guitarra);
+        const carritoActualizado = carrito.map(guitarraState => {
+            if(guitarraState.id === guitarra.id){
+                guitarraState.cantidad = guitarra.cantidad
+            }
+            return guitarraState
+        })
+        setCarrito(carritoActualizado)
+    }
+
+    const eliminarGuitarra = id => {
+        const carritoActualizado = carrito.filter( guitarraState => guitarraState.id !== id)
+        setCarrito(carritoActualizado)
+    }
+
     return(
         <Document>
-            <Outlet />
+            <Outlet 
+                context={{
+                    agregarCarrito,
+                    carrito,
+                    actualizarCantidad,
+                    eliminarGuitarra
+                }}
+            />
         </Document>
     )
 }
